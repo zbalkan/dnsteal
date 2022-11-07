@@ -68,7 +68,9 @@ def save_to_file(r_data, z, v):
 		try:
 			if v:
 			        print "%s[Info]%s base64 decoding data (%s)." % (c["y"], c["e"], key)
-			flatdata = base64.b64decode(flatdata) # test if padding correct by using a try/catch
+         
+			#flatdata = base64.b64decode(flatdata + b'==')   # Base64 encoding with fix for padding errors
+			flatdata = bytearray.fromhex(flatdata)           # Hex encoding
 		except:
 			f.close()
 			print "%s[Error]%s Incorrect padding on base64 encoded data.." % (c["r"], c["e"])
